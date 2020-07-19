@@ -6,7 +6,7 @@ dates = []
 temperatures = []
 humidities = []
 
-with open("/home/pi/humidity.csv") as csv_file:
+with open("/home/pi/humidity-logger/output/humidity.csv") as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
     next(csv_file)
     for row in csv_reader:
@@ -21,4 +21,12 @@ plt.title("Temperature", fontsize=12)
 plt.xlabel("Date", fontsize=12)
 plt.ylabel("Temperature", fontsize=12)
 plt.grid(True)
-plt.savefig("/home/pi/output/temperature-{}.png".format(datetime.now()))
+plt.savefig("/home/pi/humidity-logger/output/temperature-{}.png".format(datetime.strftime(datetime.now(), "%m-%d-%y")))
+plt.clf()
+
+plt.plot(dates, humidities, color="blue", marker="o")
+plt.title("Humidity", fontsize=12)
+plt.xlabel("Date", fontsize=12)
+plt.ylabel("Humidity", fontsize=12)
+plt.grid(True)
+plt.savefig("/home/pi/humidity-logger/output/humidity-{}.png".format(datetime.strftime(datetime.now(), "%m-%d-%y")))
